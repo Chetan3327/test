@@ -22,7 +22,7 @@
         }
 
         .container {
-            width: 40%;
+            width: 60%;
             display: flex;
             flex-direction: column;
             background-color: white;
@@ -50,9 +50,10 @@
         .messageArea {
             width: 100%;
             overflow: auto;
-            height: 500px; /* Set the desired height for the scrollable area */
+            height: 500px;
+            /* Set the desired height for the scrollable area */
         }
-        
+
 
         .messageBox {
             /* border: 2px solid #dedede; */
@@ -129,10 +130,12 @@
             }
 
         }
-        .messageArea p{
+
+        .messageArea p {
             font-family: 'Courier New', Courier, monospace;
             font-weight: 700;
         }
+
         .chat-date {
             position: relative;
             float: right;
@@ -178,12 +181,12 @@
         let chatContent = document.createElement("p");
         chatContent.textContent = chat;
         let hr = document.createElement('hr')
-        
+
         const currentTime = new Date();
         const hours = String(currentTime.getHours()).padStart(2, '0');
         const minutes = String(currentTime.getMinutes()).padStart(2, '0');
         const formattedTime = hours + ':' + minutes;
-        
+
         const timeElement = document.createElement('span');
         timeElement.textContent = formattedTime;
         timeElement.classList.add('chat-date');
