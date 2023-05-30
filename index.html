@@ -133,6 +133,11 @@
             font-family: 'Courier New', Courier, monospace;
             font-weight: 700;
         }
+        .chat-date {
+            position: relative;
+            float: right;
+            color: #888;
+        }
     </style>
 </head>
 
@@ -173,9 +178,22 @@
         let chatContent = document.createElement("p");
         chatContent.textContent = chat;
         let hr = document.createElement('hr')
+        
+        const currentTime = new Date();
+        const hours = String(currentTime.getHours()).padStart(2, '0');
+        const minutes = String(currentTime.getMinutes()).padStart(2, '0');
+        const formattedTime = hours + ':' + minutes;
+        
+        const timeElement = document.createElement('span');
+        timeElement.textContent = formattedTime;
+        timeElement.classList.add('chat-date');
+        console.log(chatContent);
+        chatContent.appendChild(timeElement);
         messageArea.appendChild(chatContent);
         messageArea.appendChild(hr)
         messageArea.scrollTop = messageArea.scrollHeight;
+
+
     });
 </script>
 
