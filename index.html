@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <style>body {
+        background-color: #5adaff;
+        display: flex;
+        align-items: center;
+        align-content: center;
+        justify-content: center;
+        height: 100vh;
+        flex-direction: column;
+        margin: 0 auto;
+        max-width: 800px;
+        padding: 0 20px;
+    }
+    
+    .container {
+        width: 40%;
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        padding: 10px;
+        border-radius: 10px;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        margin-bottom: 30px;
+        /* padding: 20px; */
+    }
+    
+    .controls {
+        align-items: center;
+        justify-content: space-around;
+        position: absolute;
+        bottom: 50px;
+        width: 40%;
+        margin-bottom: 20px;
+        display: flex;
+        background-color: white;
+        padding: 10px;
+        border-radius: 10px;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    }
+    
+    .messageArea {
+        width: 40%;
+    }
+    
+    .messageBox {
+        /* border: 2px solid #dedede; */
+        /* background-color: #f1f1f1; */
+        border-radius: 5px;
+        padding: 10px;
+        margin: 10px 0;
+        width: 100%;
+    }
+    
+    .time-right {
+        float: right;
+        color: #aaa;
+    }
+    
+    .time-left {
+        float: left;
+        color: #999;
+    }</style>
+</head>
+
+<body>
+    <div class="container">
+        <div id="messageArea" class="messageArea">
+            <p>Hello</p>
+        </div>
+    </div>
+    <form class="controls" id="form">
+        <input type="text" placeholder="Message" id="message">
+        <button>Search</button>
+    </form>
+    
+</body>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+	let socket = io();
+
+	let form = document.getElementById('form');
+	// let myname = document.getElementById('myname');
+	let message = document.getElementById('message');
+	let messageArea = document.getElementById("messageArea");
+
+	form.addEventListener("submit", (e) => {
+		e.preventDefault();
+
+		if (message.value) {
+			// socket.emit('send name', myname.value);
+			socket.emit('send message', message.value);
+			message.value = "";
+		}
+	});
+
+	socket.on("send name", (username) => {
+		let name = document.createElement("p");
+		name.style.backgroundColor = "grey";
+		name.style.width = "100%";
+		name.style.textAlign = "center";
+		name.style.color = "white";
+		name.textContent = username + ":";
+		messageArea.appendChild(name);
+	});
+
+	socket.on("send message", (chat) => {
+		let chatContent = document.createElement("p");
+		chatContent.textContent = chat;
+        let hr = document.createElement('hr')
+        
+		messageArea.appendChild(chatContent);
+        // messageArea.appendChild(hr)
+	});
+</script>
+
+</html>
