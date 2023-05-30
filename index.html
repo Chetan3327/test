@@ -7,118 +7,173 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat App</title>
     <!-- <link rel="stylesheet" href="style.css"> -->
-    <style>body {
-        background-color: #5adaff;
-        display: flex;
-        align-items: center;
-        align-content: center;
-        justify-content: center;
-        height: 100vh;
-        flex-direction: column;
-        margin: 0 auto;
-        max-width: 800px;
-        padding: 0 20px;
-    }
-    
-    .container {
-        width: 40%;
-        display: flex;
-        flex-direction: column;
-        background-color: white;
-        padding: 10px;
-        border-radius: 10px;
-        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-        margin-bottom: 30px;
-        /* padding: 20px; */
-    }
-    
-    .controls {
-        align-items: center;
-        justify-content: space-around;
-        position: absolute;
-        bottom: 50px;
-        /* width: 40%; */
-        margin-bottom: 20px;
-        display: flex;
-        background-color: white;
-        padding: 10px;
-        border-radius: 10px;
-        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    }
-    
-    .messageArea {
-        width: 40%;
-    }
-    
-    .messageBox {
-        /* border: 2px solid #dedede; */
-        /* background-color: #f1f1f1; */
-        border-radius: 5px;
-        padding: 10px;
-        margin: 10px 0;
-        width: 100%;
-    }
-    
-    .time-right {
-        float: right;
-        color: #aaa;
-    }
-    
-    .time-left {
-        float: left;
-        color: #999;
-    }</style>
+    <style>
+        body {
+            background-color: #5adaff;
+            display: flex;
+            align-items: center;
+            align-content: center;
+            justify-content: center;
+            height: 100vh;
+            flex-direction: column;
+            margin: 0 auto;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .container {
+            width: 40%;
+            display: flex;
+            flex-direction: column;
+            background-color: white;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            margin-bottom: 30px;
+            /* padding: 20px; */
+        }
+
+        .controls {
+            align-items: center;
+            justify-content: space-around;
+            position: absolute;
+            bottom: 50px;
+            /* width: 40%; */
+            margin-bottom: 20px;
+            display: flex;
+            background-color: white;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        }
+
+        .messageArea {
+            width: 40%;
+        }
+
+        .messageBox {
+            /* border: 2px solid #dedede; */
+            /* background-color: #f1f1f1; */
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px 0;
+            width: 100%;
+        }
+
+        .time-right {
+            float: right;
+            color: #aaa;
+        }
+
+        .time-left {
+            float: left;
+            color: #999;
+        }
+
+        button {
+            background-color: #5adaff;
+            border-radius: 5px;
+            color: white;
+            border: none;
+            padding: 5px;
+            cursor: pointer;
+            margin-left: 3px;
+
+            cursor: pointer;
+            outline: 0;
+            color: #fff;
+            background-color: #0d6efd;
+            border-color: #0d6efd;
+            display: inline-block;
+            font-weight: 400;
+            line-height: 1.5;
+            text-align: center;
+            border: 1px solid transparent;
+            padding: 6px 12px;
+            font-size: 16px;
+            border-radius: .25rem;
+            transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+
+            :hover {
+                color: #fff;
+                background-color: #0b5ed7;
+                border-color: #0a58ca;
+            }
+
+
+        }
+
+        input {
+
+            padding: 6px 12px;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #212529;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #ced4da;
+            appearance: none;
+            border-radius: 4px;
+            transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+
+            :focus {
+                color: #212529;
+                background-color: #fff;
+                border-color: #86b7fe;
+                outline: 0;
+                box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%);
+            }
+
+        }
+        .messageArea p{
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: 700;
+        }
+    </style>
 </head>
 
 <body>
     <div class="container">
         <div id="messageArea" class="messageArea">
-            <p>Hello</p>
+            <p>REAL TIME CHAT APP</p>
+            <hr>
         </div>
     </div>
     <form class="controls" id="form">
-        <input type="text" placeholder="Message" id="message">
+        <input type="text" placeholder="Message" id="message" autofocus>
         <button>Send</button>
     </form>
-    
+
 </body>
 <script src="/socket.io/socket.io.js"></script>
 <script>
-	let socket = io();
+    let socket = io();
 
-	let form = document.getElementById('form');
-	// let myname = document.getElementById('myname');
-	let message = document.getElementById('message');
-	let messageArea = document.getElementById("messageArea");
+    let form = document.getElementById('form');
+    // let myname = document.getElementById('myname');
+    let message = document.getElementById('message');
+    let messageArea = document.getElementById("messageArea");
 
-	form.addEventListener("submit", (e) => {
-		e.preventDefault();
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
 
-		if (message.value) {
-			// socket.emit('send name', myname.value);
-			socket.emit('send message', message.value);
-			message.value = "";
-		}
-	});
+        if (message.value) {
+            // socket.emit('send name', myname.value);
+            socket.emit('send message', message.value);
+            message.value = "";
+        }
+    });
 
-	socket.on("send name", (username) => {
-		let name = document.createElement("p");
-		name.style.backgroundColor = "grey";
-		name.style.width = "100%";
-		name.style.textAlign = "center";
-		name.style.color = "white";
-		name.textContent = username + ":";
-		messageArea.appendChild(name);
-	});
 
-	socket.on("send message", (chat) => {
-		let chatContent = document.createElement("p");
-		chatContent.textContent = chat;
+    socket.on("send message", (chat) => {
+        let chatContent = document.createElement("p");
+        chatContent.textContent = chat;
         let hr = document.createElement('hr')
-        
-		messageArea.appendChild(chatContent);
-        // messageArea.appendChild(hr)
-	});
+
+        messageArea.appendChild(chatContent);
+        messageArea.appendChild(hr)
+    });
 </script>
 
 </html>
