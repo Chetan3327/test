@@ -36,8 +36,8 @@
         .controls {
             align-items: center;
             justify-content: space-around;
-            position: absolute;
-            bottom: 50px;
+            /* position: absolute;
+            bottom: 50px; */
             /* width: 40%; */
             margin-bottom: 20px;
             display: flex;
@@ -48,8 +48,11 @@
         }
 
         .messageArea {
-            width: 40%;
+            width: 100%;
+            overflow: auto;
+            height: 500px; /* Set the desired height for the scrollable area */
         }
+        
 
         .messageBox {
             /* border: 2px solid #dedede; */
@@ -170,9 +173,9 @@
         let chatContent = document.createElement("p");
         chatContent.textContent = chat;
         let hr = document.createElement('hr')
-
         messageArea.appendChild(chatContent);
         messageArea.appendChild(hr)
+        messageArea.scrollTop = messageArea.scrollHeight;
     });
 </script>
 
