@@ -191,9 +191,12 @@
         timeElement.textContent = formattedTime;
         timeElement.classList.add('chat-date');
         console.log(chatContent);
+        const color = `rgb(${ Math.floor((Math.random() * 255))},${ Math.floor((Math.random() * 255))},${ Math.floor((Math.random() * 255))}`
+        chatContent.style.color = color
         chatContent.appendChild(timeElement);
         messageArea.appendChild(chatContent);
         messageArea.appendChild(hr)
+        document.body.style.backgroundColor = color
         messageArea.scrollTop = messageArea.scrollHeight;
 
 
