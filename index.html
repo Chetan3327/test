@@ -22,6 +22,7 @@
         }
 
         .container {
+            margin-top: 10px;
             width: 80%;
             display: flex;
             flex-direction: column;
@@ -29,7 +30,7 @@
             padding: 10px;
             border-radius: 10px;
             box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-            margin-bottom: 30px;
+            margin-bottom: 10px;
             /* padding: 20px; */
         }
 
@@ -141,6 +142,26 @@
             float: right;
             color: #888;
         }
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: black;
+            color: white;
+            text-align: center;
+
+        }
+        .footer a{
+            text-decoration: none;
+            color: yellow;
+        }
+        #formFeedback{
+            font-family: 'Courier New', Courier, monospace;
+            display: block;
+            font-weight: 700;
+            margin-bottom: 62px;
+        }
     </style>
 </head>
 
@@ -155,16 +176,29 @@
         <input type="text" placeholder="Message" id="message" autofocus autocomplete="off">
         <button>Send</button>
     </form>
-
+    <form action="feedback" class="controls" id="formFeedback">
+        <label for="messageFeedback">FEEDBACKS/ REPORT BUGS</label>
+        <br>
+        <hr>
+        <input type="text" placeholder="Type Here..." id="messageFeedback" autocomplete="off" name="messageFeedback">
+        <button type="submit" id="feedbackBtn">Send</button>
+        <!-- <a href="/feedback">SEND</a> -->
+    </form>
+    <div class="footer">
+        <p>Made with ❤️ by <a target="_blank" href="https://www.linkedin.com/in/chetan-chauhan-860106258/">3327</a>.</p>
+      </div>
 </body>
 <script src="/socket.io/socket.io.js"></script>
 <script>
     let socket = io();
 
     let form = document.getElementById('form');
+    let formFeedback = document.getElementById('formFeedback');
     // let myname = document.getElementById('myname');
     let message = document.getElementById('message');
+    let messageFeedback = document.getElementById('messageFeedback');
     let messageArea = document.getElementById("messageArea");
+    let feedbackBtn = document.getElementById('feedbackBtn')
 
     form.addEventListener("submit", (e) => {
         e.preventDefault();
@@ -176,6 +210,18 @@
         }
     });
 
+    formFeedback.addEventListener('submit', (e) => {
+        e.preventDefault()
+             
+        if(messageFeedback.value){
+            socket.emit('send mail', messageFeedback.value)
+            formFeedback.style.backgroundColor = '#9dec9b'
+            messageFeedback.outerHTML = '<p>Thanks for your Feedback.</p>'
+            feedbackBtn.innerText = "Sent"
+            feedbackBtn.style.backgroundColor = '#babfc7'
+            feedbackBtn.disabled = true
+        }
+    })
 
     socket.on("send message", (chat) => {
         let chatContent = document.createElement("p");
